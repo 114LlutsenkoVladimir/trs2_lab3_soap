@@ -8,10 +8,10 @@
 <form th:action="@{/products/by-category}" method="get">
     <label>Category ID:</label>
     <select name="categoryId" required>
-        <option value="">Select task for disable</option>
         <option th:each="c : ${categories}"
                 th:value="${c.id}"
-                th:text="${c.name}">
+                th:text="${c.name}"
+                th:selected="${c.id == selectedCategoryId}">
         </option>
     </select>
     <button type="submit">Search</button>
@@ -20,10 +20,10 @@
 <form th:action="@{/products/by-manufacturer}" method="get">
     <label>Manufacturer ID:</label>
     <select name="manufacturerId" required>
-        <option value="">Select task for disable</option>
         <option th:each="m : ${manufacturers}"
                 th:value="${m.id}"
-                th:text="${m.name}">
+                th:text="${m.name}"
+                th:selected="${m.id == selectedManufacturerId}">
         </option>
     </select>
     <button type="submit">Search</button>

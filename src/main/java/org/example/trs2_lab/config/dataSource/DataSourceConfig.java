@@ -22,9 +22,9 @@ public class DataSourceConfig {
     @Bean(name = "postgresDataSource")
     public DataSource postgresDataSource() {
         return DataSourceBuilder.create()
-                .url("jdbc:postgresql://localhost:5432/trs_lab4")
+                .url("jdbc:postgresql://localhost:5432/trs2_lab")
                 .username("postgres")
-                .password("password")
+                .password("root")
                 .driverClassName("org.postgresql.Driver")
                 .build();
     }
