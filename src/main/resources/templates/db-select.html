@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form method="get" th:action="@{/db-selection/db-select}">
+        <label th:each="db : ${dbTypes}">
+            <input type="radio" name="dbType"
+                   th:value="${db}"
+                   th:checked="${db.name() == currentDbType}">
+            <span th:text="${db}"></span>
+        </label>
+        <button type="submit">Switch DB</button>
+    </form>
+
+</body>
+</html>
