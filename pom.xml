@@ -94,11 +94,11 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <schemaDirectory>src/main/resources/xsd</schemaDirectory>
+                    <schemaDirectory>${project.basedir}/src/main/resources/xsd</schemaDirectory>
                     <schemaIncludes>
                         <include>*.xsd</include>
                     </schemaIncludes>
-                    <generatePackage>org.example.trs2_lab.soap.xsd</generatePackage>
+                    <generatePackage>org.example.trs2_lab.soap</generatePackage>
                 </configuration>
             </plugin>
         </plugins>
