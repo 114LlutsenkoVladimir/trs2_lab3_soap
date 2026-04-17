@@ -7,6 +7,8 @@ import org.example.trs2_lab.entity.Product;
 import org.example.trs2_lab.service.CategoryService;
 import org.example.trs2_lab.service.ManufacturerService;
 import org.example.trs2_lab.service.ProductService;
+import org.example.trs2_lab.soap.ProductType;
+import org.example.trs2_lab.soap.client.ProductSoapClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,19 +21,22 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/products")
-public class ProductController extends AbstractDbContextController<Product>{
+public class ProductController extends AbstractDbContextController<ProductType>{
 
     private final ProductService productService;
     private final ManufacturerService manufacturerService;
     private final CategoryService categoryService;
+    private final ProductSoapClient soapClient;
 
     public ProductController(ProductService productService,
                              ManufacturerService manufacturerService,
                              CategoryService categoryService,
-                             DbSelectionContext dbContext) {
+                             DbSelectionContext dbContext,
+                             ProductSoapClient soapClient) {
         this.productService = productService;
         this.manufacturerService = manufacturerService;
         this.categoryService = categoryService;
+        this.soapClient = soapClient;
         super(dbContext, "mysqlProducts",
                 "postgresProducts");
     }
@@ -60,14 +65,15 @@ public class ProductController extends AbstractDbContextController<Product>{
     @GetMapping("/by-category")
     public String findByCategory(@RequestParam Long categoryId,
                                  Model model) {
-        updateRelevantTable(productService.findByCategoryId(categoryId), model);
+
+        updateRelevantTable(soapClient.getProductsByCategoryId(categoryId), model);
         return "products";
     }
 
     @GetMapping("/by-manufacturer")
     public String findByManufacturer(@RequestParam Long manufacturerId,
                                      Model model) {
-        updateRelevantTable(productService.findByManufacturerId(manufacturerId), model);
+//        updateRelevantTable(productService.findByManufacturerId(manufacturerId), model);
         return "products";
     }
 
@@ -75,7 +81,7 @@ public class ProductController extends AbstractDbContextController<Product>{
     public String findByPrice(@RequestParam BigDecimal priceStart,
                               @RequestParam BigDecimal priceEnd,
                               Model model) {
-        updateRelevantTable(productService.findByPriceBetween(priceStart, priceEnd), model);
+//        updateRelevantTable(productService.findByPriceBetween(priceStart, priceEnd), model);
         return "products";
     }
 

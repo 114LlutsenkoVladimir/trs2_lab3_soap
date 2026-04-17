@@ -7,7 +7,7 @@
     <xs:element name="GetProductsByCategoryIdRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="manufacturerId" type="xs:long"/>
+                <xs:element name="categoryId" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
