@@ -17,7 +17,20 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByPriceBetween(BigDecimal priceStart, BigDecimal priceEnd);
 
-
+    @Query("""
+    select new org.example.trs2_lab.dto.ProductManufacturerCategory(
+        p.id,
+        p.name,
+        p.price,
+        c.id,
+        c.name,
+        m.id,
+        m.name
+    )
+    from Product p
+    join p.category c
+    join p.manufacturer m
+""")
     List<ProductManufacturerCategory> findAllDto();
 
     @Query("""

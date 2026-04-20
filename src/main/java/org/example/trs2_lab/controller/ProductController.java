@@ -33,12 +33,12 @@ public class ProductController extends AbstractDbContextController<ProductType>{
                              CategoryService categoryService,
                              DbSelectionContext dbContext,
                              ProductSoapClient soapClient) {
+        super(dbContext, "mysqlProducts",
+                "postgresProducts");
         this.productService = productService;
         this.manufacturerService = manufacturerService;
         this.categoryService = categoryService;
         this.soapClient = soapClient;
-        super(dbContext, "mysqlProducts",
-                "postgresProducts");
     }
 
     @ModelAttribute("categories")
@@ -73,7 +73,7 @@ public class ProductController extends AbstractDbContextController<ProductType>{
     @GetMapping("/by-manufacturer")
     public String findByManufacturer(@RequestParam Long manufacturerId,
                                      Model model) {
-//        updateRelevantTable(productService.findByManufacturerId(manufacturerId), model);
+        updateRelevantTable(soapClient.getProductsByManufacturerId(manufacturerId), model);
         return "products";
     }
 
@@ -81,7 +81,7 @@ public class ProductController extends AbstractDbContextController<ProductType>{
     public String findByPrice(@RequestParam BigDecimal priceStart,
                               @RequestParam BigDecimal priceEnd,
                               Model model) {
-//        updateRelevantTable(productService.findByPriceBetween(priceStart, priceEnd), model);
+        updateRelevantTable(soapClient.getProductsByPriceBetween(priceStart, priceEnd), model);
         return "products";
     }
 

@@ -5,15 +5,16 @@
            elementFormDefault="qualified">
     <xs:include schemaLocation="commonTypes.xsd"/>
 
-    <xs:element name="GetProductsByCategoryIdRequest">
+    <xs:element name="GetProductsByPriceBetweenRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="categoryId" type="xs:long"/>
+                <xs:element name="from" type="xs:decimal"/>
+                <xs:element name="to" type="xs:decimal"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="GetProductsByCategoryIdResponse">
+    <xs:element name="GetProductsByPriceBetweenResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="product" type="tns:productType" maxOccurs="unbounded"/>

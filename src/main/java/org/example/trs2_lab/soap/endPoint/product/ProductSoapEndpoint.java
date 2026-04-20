@@ -16,7 +16,7 @@ import java.util.List;
 
 @Endpoint
 public class ProductSoapEndpoint {
-    private static final String NAMESPACE_URI = "http://mycompany.com/products";
+    private static final String NAMESPACE_URI = "http://trs2_lab3/products";
 
     private final ProductService service;
 
@@ -25,7 +25,7 @@ public class ProductSoapEndpoint {
         this.service = service;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetProductsByManufacturerRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetProductsByCategoryIdRequest")
     @ResponsePayload
     public GetProductsByCategoryIdResponse getProducts(@RequestPayload GetProductsByCategoryIdRequest request) {
 

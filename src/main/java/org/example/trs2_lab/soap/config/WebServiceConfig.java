@@ -1,0 +1,42 @@
+package org.example.trs2_lab.soap.config;
+
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.ws.config.annotation.EnableWs;
+import org.springframework.ws.transport.http.MessageDispatcherServlet;
+import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
+import org.springframework.xml.xsd.SimpleXsdSchema;
+import org.springframework.xml.xsd.XsdSchema;
+
+@EnableWs // Обязательно! Включает поддержку SOAP в Spring
+@Configuration
+public class WebServiceConfig {
+
+    @Bean
+    public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
+        MessageDispatcherServlet servlet = new MessageDispatcherServlet();
+        servlet.setApplicationContext(applicationContext);
+        servlet.setTransformWsdlLocations(true);
+        // Вот здесь мы "открываем" путь /ws/* для приема SOAP-запросов
+        return new ServletRegistrationBean<>(servlet, "/ws/*");
+    }
+
+    // Если у вас есть WSDL, его тоже нужно здесь объявить (опционально)
+    @Bean(name = "products")
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema productsSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("ProductsPort");
+        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setTargetNamespace("http://trs2_lab3/products"); // должно совпадать с тем, что в XSD
+        wsdl11Definition.setSchema(productsSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean
+    public XsdSchema productsSchema() {
+        return new SimpleXsdSchema(new ClassPathResource("xsd/findByCategoryId.xsd")); // Укажите ваш путь
+    }
+}

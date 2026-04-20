@@ -12,7 +12,7 @@ public class SoapClientConfig {
     public Jaxb2Marshaller marshaller() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         // Вкажіть той самий пакет, куди JAXB згенерував класи (з target/generated-sources)
-        marshaller.setContextPath("com.example.yourproject.soap");
+        marshaller.setContextPath("org.example.trs2_lab.soap");
         return marshaller;
     }
 

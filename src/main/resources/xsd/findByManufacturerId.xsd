@@ -4,21 +4,21 @@
            targetNamespace="http://trs2_lab3/products"
            elementFormDefault="qualified">
     <xs:include schemaLocation="commonTypes.xsd"/>
-
-    <xs:element name="GetProductsByCategoryIdRequest">
+    <xs:element name="GetProductsByManufacturerIdRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="categoryId" type="xs:long"/>
+                <xs:element name="manufacturerId" type="xs:long"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="GetProductsByCategoryIdResponse">
+    <xs:element name="GetProductsByManufacturerIdResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="product" type="tns:productType" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
 
 </xs:schema>
